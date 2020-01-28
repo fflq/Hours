@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/today_fragment">
+
+    <fragment
+        android:id="@+id/today_fragment"
+        android:name="com.example.hours.home.TodayFragment"
+        android:label="today_fragment"
+        tools:layout="@layout/today_fragment" />
+    <fragment
+        android:id="@+id/task_fragment"
+        android:name="com.example.hours.home.TaskFragment"
+        android:label="task_fragment"
+        tools:layout="@layout/task_fragment" />
+</navigation>
