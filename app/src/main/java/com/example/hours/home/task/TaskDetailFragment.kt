@@ -1,43 +1,40 @@
-package com.example.hours.home
+package com.example.hours.home.task
+
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.example.hours.R
-import com.example.hours.home.task.TaskBaseFragment
-import kotlinx.android.synthetic.main.nav.*
 
-class TodayFragment : TaskBaseFragment() {
-
-    companion object {
-        fun newInstance() = TodayFragment()
-    }
-
-    private lateinit var viewModel: TodayViewModel
+/**
+ * A simple [Fragment] subclass.
+ */
+class TaskDetailFragment : TaskBaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.today_fragment, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_task_detail, container, false)
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            // toolbar's button for opening drawer
-            android.R.id.home -> activity?.drawerlayout?.openDrawer(GravityCompat.START)
+            R.id.task_toolbar_menu_add -> {
+                mNavController?.navigate(R.id.action_taskFragment_to_taskAddFragment)
+            }
         }
+
         return true
     }
-
 }

@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/today_fragment"
+        android:id="@+id/todayFragment"
         android:icon="@drawable/ic_today_black_24dp"
-        android:title="Item" />
+        android:title="today" />
     <item
-        android:id="@+id/task_fragment"
+        android:id="@+id/taskFragment"
         android:icon="@drawable/ic_list_black_24dp"
-        android:title="Item" />
+        android:title="task" />
 </menu>
