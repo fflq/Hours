@@ -29,7 +29,7 @@
             app:srcCompat="@drawable/ic_task_name_black_24dp" />
 
         <EditText
-            android:id="@+id/etTaskName"
+            android:id="@+id/tvTaskName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"

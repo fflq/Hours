@@ -11,8 +11,8 @@
         android:label="today_fragment"
         tools:layout="@layout/today_fragment" >
         <action
-            android:id="@+id/action_todayFragment_to_taskAddFragment"
-            app:destination="@id/taskAddFragment" />
+            android:id="@+id/action_todayFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskFragment"
@@ -33,5 +33,17 @@
     <fragment
         android:id="@+id/taskDetailFragment"
         android:name="com.example.hours.home.task.TaskDetailFragment"
-        android:label="TaskDetailFragment" />
+        android:label="TaskDetailFragment" >
+        <action
+            android:id="@+id/action_taskDetailFragment_to_taskEditFragment"
+            app:destination="@id/taskEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskEditFragment"
+        android:name="com.example.hours.home.task.TaskEditFragment"
+        android:label="TaskEditFragment" >
+        <action
+            android:id="@+id/action_taskEditFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
+    </fragment>
 </navigation>

@@ -5,21 +5,24 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 
 class TaskViewModel(application: Application): AndroidViewModel(application) {
-    var mTaskRepository: TaskRepository = TaskRepository(application)
-    var mLiveWords: LiveData<List<Task>>
+    var taskRepository: TaskRepository = TaskRepository(application)
+    var liveAllTasks: LiveData<List<Task>>
+    var liveSelectTasks: LiveData<List<Task>>
+
     init {
-        mLiveWords = mTaskRepository.selectAll()!!
+        liveAllTasks = selectAll(true)!!
+        liveSelectTasks = selectByNameLike("a")!!
     }
 
-
-    fun select(pattern: String): LiveData<List<Task>> {
-        return mTaskRepository.select(pattern)
-    }
 
     fun selectAll(isnew :Boolean=false): LiveData<List<Task>> = when(isnew) {
-        true -> mTaskRepository.selectAll()
-        else -> mLiveWords
+        true -> taskRepository.selectAll()
+        else -> liveAllTasks
     }
 
-    fun insert(vararg word: Task) = mTaskRepository.insert(*word)
+    fun selectByNameLike(name: String): LiveData<List<Task>> = taskRepository.selectByNameLike(name)
+
+    fun insert(vararg word: Task) = taskRepository.insert(*word)
+
+    fun update(vararg word: Task) = taskRepository.update(*word)
 }

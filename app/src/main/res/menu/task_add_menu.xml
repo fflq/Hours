@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <item android:id="@+id/task_toolbar_menu_save"
+    <item android:id="@+id/task_menu_save"
         android:title="Save"
         android:icon="@drawable/ic_ok_black_24dp"
         app:showAsAction="always"

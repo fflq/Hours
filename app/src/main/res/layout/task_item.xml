@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvTaskTime"
+            android:id="@+id/tvTaskHtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10000"
@@ -48,7 +48,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/item_task_time_hours_tv"
+            android:id="@+id/tvTaskMtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

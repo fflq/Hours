@@ -12,11 +12,11 @@ interface TaskDao {
     @Insert
     fun insert(vararg word: Task)
 
-    @Query("select * from $TABLE order by id desc")
+    @Query("select * from $TABLE")
     fun selectAll(): LiveData<List<Task>>
 
-    @Query("select * from $TABLE where name like :pattern order by id desc")
-    fun select(pattern: String): LiveData<List<Task>>
+    @Query("select * from $TABLE where name like :name")
+    fun selectByNameLike(name: String): LiveData<List<Task>>
 
     @Update
     fun update(vararg word: Task)

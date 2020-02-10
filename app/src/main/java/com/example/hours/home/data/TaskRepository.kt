@@ -11,14 +11,19 @@ class TaskRepository(application: Application) {
         taskDao = taskDatabase.getTaskDao()!!
     }
 
-    fun select(pattern: String): LiveData<List<Task>> = taskDao.select("%$pattern%")
-
     fun selectAll(): LiveData<List<Task>> = taskDao.selectAll()
+
+    fun selectByNameLike(name: String): LiveData<List<Task>> = taskDao.selectByNameLike("%$name%")
 
     fun insert(vararg task: Task) = InsertAsyncTask(taskDao).execute(*task)
 
+    fun update(vararg task: Task) = UpdateAsyncTask(taskDao).execute(*task)
 
     class InsertAsyncTask(var taskDao: TaskDao): AsyncTask<Task, Unit, Unit>() {
         override fun doInBackground(vararg params: Task) = taskDao.insert(*params)
+    }
+
+    class UpdateAsyncTask(var taskDao: TaskDao): AsyncTask<Task, Unit, Unit>() {
+        override fun doInBackground(vararg params: Task) = taskDao.update(*params)
     }
 }
