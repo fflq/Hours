@@ -3,8 +3,10 @@ package com.example.hours.home.task
 
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.hours.home.data.Task
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_task_add.*
 
 /**
@@ -14,21 +16,28 @@ class TaskEditFragment : TaskAddFragment() {
     lateinit var argTask: Task
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        activity?.bottom_nav_view?.visibility = View.GONE
         super.onActivityCreated(savedInstanceState)
 
-        argTask = arguments?.getParcelable<Task>("task")!!
+        activity?.bottom_nav_view?.visibility = View.GONE
+        argTask = arguments?.getParcelable("task")!!
         if (argTask is Task) {
-            tvTaskName.text = SpannableStringBuilder(argTask.name)
-            etTaskTime.text = SpannableStringBuilder((argTask.mtime / 60).toString())
+            etTaskName.text = SpannableStringBuilder(argTask.name)
+            etTaskTime.text = SpannableStringBuilder((argTask.totalMtime / 60).toString())
+            etIntervalDay.text = SpannableStringBuilder(argTask.cycleDays.toString())
+            etTimePlan.text = SpannableStringBuilder(argTask.oneCycleMtime.toString())
             this.myRadioTableLayoutManager.selectByDrawableId(argTask.drawableId)
         }
     }
 
-    override fun handleTask(name: String, mtime: Int, drawableId: Int) {
+    override fun handleTask(input: Task) {
+        activity?.bottom_nav_view?.visibility = View.GONE
         argTask.apply {
-            this.name = name
-            this.mtime = mtime
-            this.drawableId = drawableId
+            this.name = input.name
+            this.drawableId = input.drawableId
+            this.totalMtime = input.totalMtime
+            this.oneCycleMtime = input.oneCycleMtime
+            this.cycleDays = input.cycleDays
         }
         taskViewModel?.update(argTask)
     }

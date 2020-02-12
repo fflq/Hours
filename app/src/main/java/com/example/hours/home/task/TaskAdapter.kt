@@ -11,14 +11,17 @@ import com.example.hours.R
 import com.example.hours.home.data.Task
 import kotlinx.android.synthetic.main.task_card_item.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import kotlin.math.max
 
-class TaskAdapter(var mContext: Context?): ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
+class TaskAdapter(var mContext: Context?, var type: TYPE = TYPE.TASK): ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
     var onItemClickListener: OnTaskClickListener? = null
     var onItemAddTimeClickListener: OnTaskClickListener? = null
 
     interface OnTaskClickListener {
         fun onClick(v: View?, task: Task)
     }
+
+    enum class TYPE { TASK, TODAY }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.task_card_item, parent, false)
@@ -34,14 +37,16 @@ class TaskAdapter(var mContext: Context?): ListAdapter<Task, TaskAdapter.TaskVie
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         var task = getItem(position)
         //holder.itemView.tvTaskID.text = (position+1).toString()
-        holder.itemView.tvTaskName.text = task.name
-        val mtimeLeft = task.mtime - task.mtimeDone
+        holder.itemView.tag = task
+        holder.itemView.etTaskName.text = task.name
+        holder.itemView.ivTask.setImageDrawable(mContext?.resources?.getDrawable(task.drawableId, null))
+
+        var mtime = if(this.type == TYPE.TASK) task.totalMtime else task.oneCycleMtime
+        var mtimeDone = if(this.type == TYPE.TASK) task.totalMtimeHasDone else task.oneCycleMtimeHasDone
+        val mtimeLeft = max(mtime - mtimeDone, 0)
         holder.itemView.tvTaskHtime.text = (mtimeLeft/60).toString() + "h"
         holder.itemView.tvTaskMtime.text = (mtimeLeft%60).toString() + "m"
-        holder.itemView.ivTask.setImageDrawable(mContext?.resources?.getDrawable(task.drawableId, null))
-        holder.itemView.pbTask.progress = 100*task.mtimeDone/task.mtime
-        holder.itemView.tag = task
-
+        holder.itemView.pbTask.progress = if (mtime == 0) 0 else 100*mtimeDone/mtime
     }
 
 

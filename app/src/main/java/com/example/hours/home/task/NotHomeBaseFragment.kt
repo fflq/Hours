@@ -18,16 +18,18 @@ open class NotHomeBaseFragment: BaseFragment() {
     }
 
 
-    override fun onResume() {
+    override fun onDestroyView() {
         // restore bottom nav
         activity?.bottom_nav_view?.visibility = View.VISIBLE
-        super.onResume()
+        super.onDestroyView()
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> navController?.navigateUp()
+            android.R.id.home -> {
+                navController?.navigateUp()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

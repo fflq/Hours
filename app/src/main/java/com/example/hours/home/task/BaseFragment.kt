@@ -12,7 +12,7 @@ import com.example.hours.home.data.TaskViewModel
  * A [Fragment] subclass.
  * base for
  */
-open class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment() {
 
     var navController: NavController? = null
     var taskViewModel: TaskViewModel? = null

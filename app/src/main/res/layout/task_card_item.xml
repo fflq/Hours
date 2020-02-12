@@ -14,7 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl11"
@@ -96,14 +97,14 @@
                     app:srcCompat="@drawable/ic_task5" />
 
                 <TextView
-                    android:id="@+id/tvTaskName"
+                    android:id="@+id/etTaskName"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_margin="4dp"
                     android:ellipsize="end"
                     android:gravity="center|left"
                     android:singleLine="true"
-                    android:text="iihhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    android:text="iihhaaaaaaaaaaaaaaaaaaaaaaa"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

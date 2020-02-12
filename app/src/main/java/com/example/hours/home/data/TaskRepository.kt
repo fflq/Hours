@@ -13,11 +13,13 @@ class TaskRepository(application: Application) {
 
     fun selectAll(): LiveData<List<Task>> = taskDao.selectAll()
 
-    fun selectByNameLike(name: String): LiveData<List<Task>> = taskDao.selectByNameLike("%$name%")
+    fun selectAllByNameLike(name: String): LiveData<List<Task>> = taskDao.selectAllByNameLike("%$name%")
 
     fun insert(vararg task: Task) = InsertAsyncTask(taskDao).execute(*task)
 
     fun update(vararg task: Task) = UpdateAsyncTask(taskDao).execute(*task)
+
+    fun delete(vararg task: Task) = DeleteAsyncTask(taskDao).execute(*task)
 
     class InsertAsyncTask(var taskDao: TaskDao): AsyncTask<Task, Unit, Unit>() {
         override fun doInBackground(vararg params: Task) = taskDao.insert(*params)
@@ -25,5 +27,9 @@ class TaskRepository(application: Application) {
 
     class UpdateAsyncTask(var taskDao: TaskDao): AsyncTask<Task, Unit, Unit>() {
         override fun doInBackground(vararg params: Task) = taskDao.update(*params)
+    }
+
+    class DeleteAsyncTask(var taskDao: TaskDao): AsyncTask<Task, Unit, Unit>() {
+        override fun doInBackground(vararg params: Task) = taskDao.delete(*params)
     }
 }

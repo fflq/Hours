@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav.*
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mNavController: NavController
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +37,11 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        mNavController = findNavController(R.id.navhost_home_fragment)
-        //val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(mNavController.graph).build()
+        navController = findNavController(R.id.navhost_home_fragment)
+        //val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
         val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(bottom_nav_view.menu).build()
-        setupActionBarWithNavController(mNavController, appBarConfiguration)
-        bottom_nav_view.setupWithNavController(mNavController)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        bottom_nav_view.setupWithNavController(navController)
 
     }
 

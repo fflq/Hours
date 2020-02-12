@@ -7,11 +7,11 @@ import androidx.lifecycle.LiveData
 class TaskViewModel(application: Application): AndroidViewModel(application) {
     var taskRepository: TaskRepository = TaskRepository(application)
     var liveAllTasks: LiveData<List<Task>>
-    var liveSelectTasks: LiveData<List<Task>>
+    var liveTodayTasks: LiveData<List<Task>>
 
     init {
         liveAllTasks = selectAll(true)!!
-        liveSelectTasks = selectByNameLike("a")!!
+        liveTodayTasks = taskRepository.taskDao.selectToday()!!
     }
 
 
@@ -20,9 +20,15 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
         else -> liveAllTasks
     }
 
-    fun selectByNameLike(name: String): LiveData<List<Task>> = taskRepository.selectByNameLike(name)
+    fun selectAllByNameLike(name: String): LiveData<List<Task>> = taskRepository.selectAllByNameLike(name)
+
+    fun selectToday() = taskRepository.taskDao.selectToday()
+
+    fun selectTodayByNameLike(name: String): LiveData<List<Task>> = taskRepository.taskDao.selectTodayByNameLike(name)
 
     fun insert(vararg word: Task) = taskRepository.insert(*word)
 
     fun update(vararg word: Task) = taskRepository.update(*word)
+
+    fun delete(vararg word: Task) = taskRepository.delete(*word)
 }

@@ -48,18 +48,30 @@ open class TaskAddFragment : NotHomeBaseFragment() {
 
 
     // different in add/edit
-    open fun handleTask(name: String, mtime: Int, drawableId: Int) {
-        taskViewModel?.insert(Task(name, mtime, drawableId))
+    open fun handleTask(input: Task) {
+        taskViewModel?.insert(input)
     }
 
     private fun save() {
-        if ( tvTaskName.text.isNotEmpty() && etTaskTime.text.isNotEmpty() && (tlTableLayout.tag != null)) {
-            val drawableId = (tlTableLayout.tag as ImageView).tag as Int
+        fun isNotEmpty(): Boolean {
+            return ( etTaskName.text.isNotEmpty() && etTaskTime.text.isNotEmpty() && etTimePlan.text.isNotEmpty()
+                    && etIntervalDay.text.isNotEmpty()
+                    )
+        }
 
-           handleTask( tvTaskName.text.toString(), etTaskTime.text.toString().toInt()*60, drawableId)
+        if ( isNotEmpty() && (tlTableLayout.tag != null)) {
+            val input = Task().apply {
+                name = etTaskName.text.toString()
+                drawableId = (tlTableLayout.tag as ImageView).tag as Int
+                totalMtime = etTaskTime.text.toString().toInt()*60
+                oneCycleMtime = etTimePlan.text.toString().toInt()
+                cycleDays = etIntervalDay.text.toString().toInt()
+            }
+
+            handleTask(input)
 
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(tvTaskName.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+            imm.hideSoftInputFromWindow(etTaskName.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 
             navController?.navigateUp()
         }
