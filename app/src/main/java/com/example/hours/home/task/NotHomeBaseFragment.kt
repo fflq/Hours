@@ -11,17 +11,11 @@ open class NotHomeBaseFragment: BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        activity?.bottom_nav_view?.visibility = View.GONE
+
         // set 'up' button icon
         (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(null)
         // hide bottom nav
-        activity?.bottom_nav_view?.visibility = View.GONE
-    }
-
-
-    override fun onDestroyView() {
-        // restore bottom nav
-        activity?.bottom_nav_view?.visibility = View.VISIBLE
-        super.onDestroyView()
     }
 
 

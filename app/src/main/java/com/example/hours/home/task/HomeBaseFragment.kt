@@ -3,6 +3,7 @@ package com.example.hours.home.task
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -19,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hours.R
 import com.example.hours.home.data.Task
+import com.example.hours.home.dialog.SortDialogFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav.*
 import kotlinx.android.synthetic.main.task_fragment.*
 import org.jetbrains.anko.sdk27.coroutines.onQueryTextListener
@@ -26,29 +29,31 @@ import org.jetbrains.anko.sdk27.coroutines.onQueryTextListener
 abstract class HomeBaseFragment: BaseFragment() {
 
     var taskAdapter: TaskAdapter? = null
-    var liveTasks: LiveData<List<Task>>? = null
 
 
-    abstract fun getToDetailAction(): Int
-    abstract fun getToAddTimeAction(): Int
-    abstract fun getMenuLayout(): Int
+    abstract val toDetailAction: Int
+    abstract val toAddTimeAction: Int
+    abstract val menuLayout: Int
+    abstract val taskAdapterType: TaskAdapter.TYPE
+    abstract val liveTasks: LiveData<List<Task>>?
+
     abstract fun selectByNameLike(name: String): LiveData<List<Task>>?
 
 
     override fun initVarOnce() {
         super.initVarOnce()
 
-        this.taskAdapter = this.taskAdapter?: TaskAdapter(context).also {
+        this.taskAdapter = this.taskAdapter?: TaskAdapter(context, taskAdapterType).also {
             it.onItemClickListener = object: TaskAdapter.OnTaskClickListener {
                 override fun onClick(v: View?, task: Task) {
                     var bundle = Bundle().apply { putParcelable("task", task) }
-                    navController?.navigate(getToDetailAction(), bundle)
+                    navController?.navigate(toDetailAction, bundle)
                 }
             }
             it.onItemAddTimeClickListener = object : TaskAdapter.OnTaskClickListener {
                 override fun onClick(v: View?, task: Task) {
                     var bundle = Bundle().apply { putParcelable("task", task) }
-                    navController?.navigate(getToAddTimeAction(), bundle)
+                    navController?.navigate(toAddTimeAction, bundle)
                 }
             }
         }
@@ -57,6 +62,8 @@ abstract class HomeBaseFragment: BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        activity?.bottom_nav_view?.visibility = View.VISIBLE
 
         (activity as AppCompatActivity).supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true) // toolbar's button
@@ -74,9 +81,16 @@ abstract class HomeBaseFragment: BaseFragment() {
             adapter = taskAdapter
         }
 
-        if (liveTasks!!.hasObservers()) liveTasks?.removeObservers(viewLifecycleOwner)
-        liveTasks?.observe(viewLifecycleOwner, Observer<List<Task>> {
-            this.taskAdapter?.submitList(it)
+        updateLiveTasksObserve(liveTasks)
+
+        taskViewModel?.liveSort?.observe(viewLifecycleOwner, Observer<String> {
+            Log.d ("FLQ", "observe")
+            taskViewModel?.sharedPreferencesEditor?.apply {
+                putString(getString(R.string.sort), it).commit()
+            }
+            taskViewModel?.notifySortChanged()
+
+            updateLiveTasksObserve(liveTasks)
         })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(UP or DOWN, START or END) {
@@ -102,10 +116,22 @@ abstract class HomeBaseFragment: BaseFragment() {
     }
 
 
+    // update observe with newLiveTasks, and remove old-
+    private var oldLiveTasks: LiveData<List<Task>>? = null
+    fun updateLiveTasksObserve(newLiveTasks: LiveData<List<Task>>?) {
+        oldLiveTasks?.removeObservers(viewLifecycleOwner)
+        oldLiveTasks = newLiveTasks
+        newLiveTasks?.observe(viewLifecycleOwner, Observer<List<Task>> {
+            this.taskAdapter?.submitList(it)
+        })
+    }
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             // toolbar's button for opening drawer
             android.R.id.home -> activity?.drawerlayout?.openDrawer(GravityCompat.START)
+            R.id.menu_sort -> SortDialogFragment().show(parentFragmentManager, "dialog")
         }
         return super.onOptionsItemSelected(item)
     }
@@ -115,11 +141,7 @@ abstract class HomeBaseFragment: BaseFragment() {
         searchView.onQueryTextListener {
             onQueryTextChange {
                 val input = searchView.query.toString().trim()
-                if (liveTasks!!.hasObservers())  liveTasks?.removeObservers(viewLifecycleOwner)
-                liveTasks = selectByNameLike(input)
-                liveTasks?.observe(viewLifecycleOwner, Observer<List<Task>> {
-                    taskAdapter?.submitList(it)
-                })
+                updateLiveTasksObserve(selectByNameLike(input))
                 true
             }
         }
@@ -128,7 +150,7 @@ abstract class HomeBaseFragment: BaseFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(getMenuLayout(), menu)
+        inflater.inflate(menuLayout, menu)
 
         var searchView = menu?.findItem(R.id.app_bar_search).actionView as SearchView
         if (searchView is SearchView)   onSearch(searchView)

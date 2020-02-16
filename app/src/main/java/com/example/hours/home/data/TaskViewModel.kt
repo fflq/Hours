@@ -1,30 +1,54 @@
 package com.example.hours.home.data
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.hours.R
 
 class TaskViewModel(application: Application): AndroidViewModel(application) {
     var taskRepository: TaskRepository = TaskRepository(application)
     var liveAllTasks: LiveData<List<Task>>
     var liveTodayTasks: LiveData<List<Task>>
 
+    var sharedPreferences: SharedPreferences
+    var sharedPreferencesEditor: SharedPreferences.Editor
+    var liveSort = MutableLiveData<String>()
+    var sort = ""
+
     init {
-        liveAllTasks = selectAll(true)!!
-        liveTodayTasks = taskRepository.taskDao.selectToday()!!
+        sharedPreferences = application.getSharedPreferences(application.getString(R.string.pref_file), Context.MODE_PRIVATE)
+        sharedPreferencesEditor = sharedPreferences.edit()
+        liveSort.value = sharedPreferences.getString(application.getString(R.string.sort), "")!!
+
+        this.sort = liveSort.value as String
+        this.liveAllTasks = selectAll(sort)
+        this.liveTodayTasks = selectToday(sort)
     }
 
-
-    fun selectAll(isnew :Boolean=false): LiveData<List<Task>> = when(isnew) {
-        true -> taskRepository.selectAll()
-        else -> liveAllTasks
+    fun notifySortChanged() {
+        this.sort = liveSort.value as String
+        this.liveAllTasks = selectAll(sort)
+        this.liveTodayTasks = selectToday(sort)
     }
 
-    fun selectAllByNameLike(name: String): LiveData<List<Task>> = taskRepository.selectAllByNameLike(name)
+    fun selectAll(sort: String=this.sort): LiveData<List<Task>> = taskRepository.selectAll(sort)
 
-    fun selectToday() = taskRepository.taskDao.selectToday()
+    fun selectAllByNameLike(name: String): LiveData<List<Task>> {
+        // search name is empty, resotre sort order, optimize future
+        if (name.isEmpty()) return selectAll()
+        return taskRepository.taskDao.selectAllByNameLike("%$name%")
+    }
 
-    fun selectTodayByNameLike(name: String): LiveData<List<Task>> = taskRepository.taskDao.selectTodayByNameLike(name)
+    fun selectToday(sort: String=this.sort) = taskRepository.selectToday(sort)
+
+    fun selectTodayByNameLike(name: String): LiveData<List<Task>> {
+        if (name.isEmpty()) return selectToday()
+        return taskRepository.taskDao.selectTodayByNameLike("%$name%")
+    }
+
 
     fun insert(vararg word: Task) = taskRepository.insert(*word)
 

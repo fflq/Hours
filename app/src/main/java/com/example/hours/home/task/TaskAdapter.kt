@@ -50,13 +50,6 @@ class TaskAdapter(var mContext: Context?, var type: TYPE = TYPE.TASK): ListAdapt
     }
 
 
-    /*
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        this.onItemClickListener.onItemClick(parent, view, position, id)
-    }
-     */
-
-
     class TaskViewHolder(view: View): RecyclerView.ViewHolder(view)
 
 

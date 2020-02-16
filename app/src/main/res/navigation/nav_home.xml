@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_taskDetailFragment_to_taskEditFragment"
             app:destination="@id/taskEditFragment" />
+        <action
+            android:id="@+id/action_taskDetailFragment_to_taskRecordsFragment"
+            app:destination="@id/taskRecordsFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskEditFragment"
@@ -60,4 +63,9 @@
         android:name="com.example.hours.home.task.TaskAddTimeFragment"
         android:label="fragment_task_add_time"
         tools:layout="@layout/fragment_task_add_time" />
+    <fragment
+        android:id="@+id/taskRecordsFragment"
+        android:name="com.example.hours.home.task.TaskRecordsFragment"
+        android:label="fragment_task_records"
+        tools:layout="@layout/fragment_task_records" />
 </navigation>

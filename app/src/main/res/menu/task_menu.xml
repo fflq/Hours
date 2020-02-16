@@ -9,9 +9,13 @@
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
-    <item android:id="@+id/task_menu_add"
+    <item android:id="@+id/menu_add"
         android:title="Add"
         android:icon="@drawable/ic_add_black_24dp"
         app:showAsAction="always"
         />
+    <item
+        android:id="@+id/menu_sort"
+        android:title="sort by"
+        app:showAsAction="never" />
 </menu>

@@ -16,6 +16,7 @@ class Task(): Parcelable {
     var totalMtime: Int = 0
     var totalMtimeHasDone: Int = 0
     var addTime: Int = (System.currentTimeMillis()/1000).toInt()
+    var note:String = ""
     // for today select, can put to new table
     var startDate: Int = addTime - (addTime+3600*8)%86400
     var cycleDays: Int = 0
@@ -24,11 +25,12 @@ class Task(): Parcelable {
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readValue(Int::class.java.classLoader) as? Int
-        name = parcel.readString()!!
+        name = parcel.readString().toString()
         drawableId = parcel.readInt()
         totalMtime = parcel.readInt()
         totalMtimeHasDone = parcel.readInt()
         addTime = parcel.readInt()
+        note = parcel.readString().toString()
         startDate = parcel.readInt()
         cycleDays = parcel.readInt()
         oneCycleMtime = parcel.readInt()
@@ -36,12 +38,14 @@ class Task(): Parcelable {
     }
 
 
-    constructor(name: String, mtime: Int, drawableId: Int): this() {
+    constructor(name: String, mtime: Int, drawableId: Int, note: String=""): this() {
         this.name = name
         this.totalMtime = mtime
         this.drawableId = drawableId
+        this.note = note
     }
     constructor(id: Int, name: String, mtime: Int, drawableId: Int): this(name, mtime, drawableId) { this.id = id }
+    constructor(id: Int, name: String, mtime: Int, drawableId: Int, note: String): this(name, mtime, drawableId, note) { this.id = id }
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.apply {
@@ -51,6 +55,7 @@ class Task(): Parcelable {
             writeInt(totalMtime)
             writeInt(totalMtimeHasDone)
             writeInt(addTime)
+            writeString(note)
             writeInt(startDate)
             writeInt(cycleDays)
             writeInt(oneCycleMtime)
@@ -62,7 +67,8 @@ class Task(): Parcelable {
     override fun equals(other: Any?): Boolean {
         (other as Task)?.let {
             return (
-                    (id == it.id) && (name == it.name) && (drawableId == it.drawableId) && (totalMtime == it.totalMtime) && (totalMtimeHasDone == it.totalMtimeHasDone)
+                    (id == it.id) && (name == it.name) && (drawableId == it.drawableId) && (totalMtime == it.totalMtime)
+                            && (totalMtimeHasDone == it.totalMtimeHasDone) && (note == it.note)
                             &&(addTime == it.addTime) && (startDate == it.startDate) && (cycleDays == it.cycleDays)
                             &&(oneCycleMtime == it.oneCycleMtime) &&(oneCycleMtimeHasDone == it.oneCycleMtimeHasDone)
                     )

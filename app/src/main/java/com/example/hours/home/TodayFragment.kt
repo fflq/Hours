@@ -8,18 +8,21 @@ import androidx.lifecycle.LiveData
 import com.example.hours.R
 import com.example.hours.home.data.Task
 import com.example.hours.home.task.HomeBaseFragment
+import com.example.hours.home.task.TaskAdapter
 
 class TodayFragment : HomeBaseFragment() {
 
-    override fun getToDetailAction() = R.id.action_todayFragment_to_taskDetailFragment
-    override fun getToAddTimeAction() = R.id.action_todayFragment_to_taskAddTimeFragment
-    override fun getMenuLayout(): Int = R.menu.today_menu
+    override val toDetailAction get() = R.id.action_todayFragment_to_taskDetailFragment
+    override val toAddTimeAction get() = R.id.action_todayFragment_to_taskAddTimeFragment
+    override val menuLayout: Int get() = R.menu.today_menu
+    override val taskAdapterType: TaskAdapter.TYPE get() = TaskAdapter.TYPE.TODAY
+    override val liveTasks: LiveData<List<Task>>? get() = taskViewModel?.liveTodayTasks
+
     override fun selectByNameLike(name: String): LiveData<List<Task>>? = this.taskViewModel?.selectTodayByNameLike(name)
 
 
     override fun initVarOnce() {
         super.initVarOnce()
-        this.liveTasks = this.liveTasks?: this.taskViewModel!!.liveTodayTasks
     }
 
 

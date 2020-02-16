@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 
 import com.example.hours.R
 import com.example.hours.home.data.Task
+import com.example.hours.home.data.TaskRecord
 import kotlinx.android.synthetic.main.fragment_task_add_time.*
 import org.jetbrains.anko.support.v4.toast
 
@@ -46,6 +47,8 @@ class TaskAddTimeFragment : NotHomeBaseFragment() {
             argTask.totalMtimeHasDone += mtimeAdd
             argTask.oneCycleMtimeHasDone += mtimeAdd
             taskViewModel?.update(argTask)
+
+            taskViewModel?.taskRepository?.insertRecords(TaskRecord(argTask.id!!, mtimeAdd, etNote.text.toString()))
 
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(etTimeAdd.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
