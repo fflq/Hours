@@ -8,7 +8,7 @@ import androidx.room.*
 interface TaskDao {
     companion object {
         const val TABLE = "task"
-        const val TODAY = "oneCycleMtime!=0 and oneCycleMtimeHasDone<oneCycleMtime"
+        const val TODAY = "1=1"
         const val ORDER_ID = "order by id desc"
     }
 
@@ -52,4 +52,6 @@ interface TaskDao {
 
     @Insert
     fun insert(vararg word: Task)
+    @Insert
+    fun insertOne(word: Task): Long
 }

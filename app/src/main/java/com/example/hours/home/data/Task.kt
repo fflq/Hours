@@ -3,6 +3,7 @@ package com.example.hours.home.data
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Task")
@@ -17,11 +18,9 @@ class Task(): Parcelable {
     var totalMtimeHasDone: Int = 0
     var addTime: Int = (System.currentTimeMillis()/1000).toInt()
     var note:String = ""
-    // for today select, can put to new table
-    var startDate: Int = addTime - (addTime+3600*8)%86400
-    var cycleDays: Int = 0
-    var oneCycleMtime: Int = 0
-    var oneCycleMtimeHasDone: Int = 0
+    // for today, ignore in Task table
+    @Ignore var oneCycleMtime: Int = 0
+    @Ignore var oneCycleMtimeHasDone: Int = 0
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readValue(Int::class.java.classLoader) as? Int
@@ -31,8 +30,6 @@ class Task(): Parcelable {
         totalMtimeHasDone = parcel.readInt()
         addTime = parcel.readInt()
         note = parcel.readString().toString()
-        startDate = parcel.readInt()
-        cycleDays = parcel.readInt()
         oneCycleMtime = parcel.readInt()
         oneCycleMtimeHasDone = parcel.readInt()
     }
@@ -56,8 +53,6 @@ class Task(): Parcelable {
             writeInt(totalMtimeHasDone)
             writeInt(addTime)
             writeString(note)
-            writeInt(startDate)
-            writeInt(cycleDays)
             writeInt(oneCycleMtime)
             writeInt(oneCycleMtimeHasDone)
         }
@@ -69,7 +64,7 @@ class Task(): Parcelable {
             return (
                     (id == it.id) && (name == it.name) && (drawableId == it.drawableId) && (totalMtime == it.totalMtime)
                             && (totalMtimeHasDone == it.totalMtimeHasDone) && (note == it.note)
-                            &&(addTime == it.addTime) && (startDate == it.startDate) && (cycleDays == it.cycleDays)
+                            &&(addTime == it.addTime)
                             &&(oneCycleMtime == it.oneCycleMtime) &&(oneCycleMtimeHasDone == it.oneCycleMtimeHasDone)
                     )
         }

@@ -7,10 +7,12 @@ import androidx.lifecycle.LiveData
 class TaskRepository(application: Application) {
     var taskDao: TaskDao
     var taskRecordDao: TaskRecordDao
+    var taskPlanDao: TaskPlanDao
     init {
         var taskDatabase = TaskDatabase.getTaskDatabase(application.applicationContext)!!
         taskDao = taskDatabase.getTaskDao()!!
         taskRecordDao = taskDatabase.getTaskRecordDao()!!
+        taskPlanDao = taskDatabase.getTaskPlanDao()!!
     }
 
 
@@ -35,6 +37,7 @@ class TaskRepository(application: Application) {
     //fun selectAllByNameLike(name: String): LiveData<List<Task>> = taskDao.selectAllByNameLike(name)
 
     fun insert(vararg task: Task) = InsertAsyncTask(taskDao).execute(*task)
+    fun insertOne(task: Task): Long = InsertOneAsyncTask(taskDao).execute(task).get()
 
     fun update(vararg task: Task) = UpdateAsyncTask(taskDao).execute(*task)
 
@@ -42,6 +45,9 @@ class TaskRepository(application: Application) {
 
     class InsertAsyncTask(var taskDao: TaskDao): AsyncTask<Task, Unit, Unit>() {
         override fun doInBackground(vararg params: Task) = taskDao.insert(*params)
+    }
+    class InsertOneAsyncTask(var taskDao: TaskDao): AsyncTask<Task, Unit, Long>() {
+        override fun doInBackground(vararg params: Task): Long = taskDao.insertOne(params[0])
     }
 
     class UpdateAsyncTask(var taskDao: TaskDao): AsyncTask<Task, Unit, Unit>() {
@@ -55,9 +61,28 @@ class TaskRepository(application: Application) {
 
     fun selectRecordsByTid(tid: Int): LiveData<List<TaskRecord>> = taskRecordDao.select(tid)
 
-    fun insertRecords(vararg taskRecord: TaskRecord) = InsertTaskRecordAsyncTask(taskRecordDao).execute(*taskRecord)
+    fun insertRecords(vararg taskRecord: TaskRecord) = InsertRecordsAsyncTask(taskRecordDao).execute(*taskRecord)
 
-    class InsertTaskRecordAsyncTask(var taskRecordDao: TaskRecordDao): AsyncTask<TaskRecord, Unit, Unit>() {
+    class InsertRecordsAsyncTask(var taskRecordDao: TaskRecordDao): AsyncTask<TaskRecord, Unit, Unit>() {
         override fun doInBackground(vararg params: TaskRecord) = taskRecordDao.insert(*params)
+    }
+
+
+    fun insertPlans(vararg taskPlan: TaskPlan) = InsertPlansAsyncTask(taskPlanDao).execute(*taskPlan)
+
+    fun deletePlansByTid(tid: Int) = DeletePlansByTidAsyncTask(taskPlanDao).execute(tid)
+
+    fun selectPlansByTid(tid: Int): List<TaskPlan> = SelectPlansByTidAsyncTask(taskPlanDao).execute(tid).get()
+
+    class InsertPlansAsyncTask(var taskPlanDao: TaskPlanDao): AsyncTask<TaskPlan, Unit, Unit>() {
+        override fun doInBackground(vararg params: TaskPlan) = taskPlanDao.insert(*params)
+    }
+
+    class DeletePlansByTidAsyncTask(var taskPlanDao: TaskPlanDao): AsyncTask<Int, Unit, Unit>() {
+        override fun doInBackground(vararg params: Int?) = params[0]?.let { taskPlanDao.deleteByTid(it) }
+    }
+
+    class SelectPlansByTidAsyncTask(var taskPlanDao: TaskPlanDao): AsyncTask<Int, Unit, List<TaskPlan>>() {
+        override fun doInBackground(vararg params: Int?) = params[0]?.let { taskPlanDao.selectByTid(it) }
     }
 }

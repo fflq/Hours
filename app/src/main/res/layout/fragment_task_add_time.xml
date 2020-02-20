@@ -25,14 +25,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/etTimeAdd"
+        <TextView
+            android:id="@+id/tvSelectTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:ems="10"
-            android:hint="select time(min)"
             android:inputType="number"
+            android:text="select time"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:background="?selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView6"

@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav.*
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
@@ -17,6 +18,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nav)
+
+        thread(true) {
+            //var taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
+
+        }
 
         setSupportActionBar(toolbar)
         supportActionBar?.apply {

@@ -55,4 +55,10 @@ dependencies {
     //testImplementation "androidx.paging:paging-common:$paging_version"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+    implementation 'com.weigan:loopView:0.2.2'
+
+    implementation "com.contrarywind:Android-PickerView:4.1.9"
+    debugImplementation 'com.idescout.sql:sqlscout-server:4.1'
+    releaseImplementation 'com.idescout.sql:sqlscout-server-noop:4.1'
 }

@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment
 import com.example.hours.R
 import com.example.hours.home.data.Task
 import com.example.hours.home.data.TaskRecord
+import com.example.hours.home.dialog.SelectTimeDialogFragment
 import kotlinx.android.synthetic.main.fragment_task_add_time.*
+import kotlinx.android.synthetic.main.fragment_task_add_time.view.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -24,7 +27,12 @@ class TaskAddTimeFragment : NotHomeBaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_task_add_time, container, false)
+        var rootView = inflater.inflate(R.layout.fragment_task_add_time, container, false)
+        rootView.tvSelectTime.apply {
+            onClick { SelectTimeDialogFragment(rootView.tvSelectTime).show(parentFragmentManager, "dialog") }
+            this.tag = 0
+        }
+        return rootView
     }
 
 
@@ -42,8 +50,8 @@ class TaskAddTimeFragment : NotHomeBaseFragment() {
 
 
     private fun save() {
-        if (etTimeAdd.text.isNotEmpty()) {
-            val mtimeAdd = etTimeAdd.text.toString().toInt()
+        if (tvSelectTime.text.isNotEmpty()) {
+            val mtimeAdd = tvSelectTime.tag as Int
             argTask.totalMtimeHasDone += mtimeAdd
             argTask.oneCycleMtimeHasDone += mtimeAdd
             taskViewModel?.update(argTask)
@@ -51,7 +59,7 @@ class TaskAddTimeFragment : NotHomeBaseFragment() {
             taskViewModel?.taskRepository?.insertRecords(TaskRecord(argTask.id!!, mtimeAdd, etNote.text.toString()))
 
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(etTimeAdd.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+            imm.hideSoftInputFromWindow(tvSelectTime.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 
             navController?.navigateUp()
         }
