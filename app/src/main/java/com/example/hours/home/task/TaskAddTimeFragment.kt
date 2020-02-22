@@ -45,15 +45,15 @@ class TaskAddTimeFragment : NotHomeBaseFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.task_add_menu, menu)
+        inflater.inflate(R.menu.task_save_menu, menu)
     }
 
 
     private fun save() {
         if (tvSelectTime.text.isNotEmpty()) {
             val mtimeAdd = tvSelectTime.tag as Int
-            argTask.totalMtimeHasDone += mtimeAdd
-            argTask.oneCycleMtimeHasDone += mtimeAdd
+            argTask.totalMtimeDone += mtimeAdd
+            argTask.cycleMtimeDone += mtimeAdd
             taskViewModel?.update(argTask)
 
             taskViewModel?.taskRepository?.insertRecords(TaskRecord(argTask.id!!, mtimeAdd, etNote.text.toString()))

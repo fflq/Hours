@@ -50,9 +50,9 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    fun insert(vararg word: Task) = taskRepository.insert(*word)
+    fun insert(vararg task: Task) = taskRepository.insert(*task)
 
-    fun update(vararg word: Task) = taskRepository.update(*word)
+    fun update(vararg task: Task) = taskRepository.update(*task)
 
-    fun delete(vararg word: Task) = taskRepository.delete(*word)
+    fun delete(vararg task: Task) = taskRepository.delete(*task)
 }

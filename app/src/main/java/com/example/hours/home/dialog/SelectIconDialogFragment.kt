@@ -39,7 +39,7 @@ class SelectIconDialogFragment(var boxSelectDrawableId: Box<Int>): DialogFragmen
 
     class MyRadioTableLayoutManager( var resources: Resources, var tableLayout: TableLayout, var boxSelectDrawableId: Box<Int>) {
         companion object {
-            val mDrawableIds = arrayOf(
+            val drawableIds = arrayOf(
                 R.drawable.ic_task1, R.drawable.ic_task2, R.drawable.ic_task3,
                 R.drawable.ic_task4, R.drawable.ic_task5, R.drawable.ic_task6
             )
@@ -110,7 +110,7 @@ class SelectIconDialogFragment(var boxSelectDrawableId: Box<Int>): DialogFragmen
         }
 
         private fun getTaskDrawableId(id: Int = 0): Int {
-            return mDrawableIds[id % mDrawableIds.size]
+            return drawableIds[id % drawableIds.size]
         }
 
     }

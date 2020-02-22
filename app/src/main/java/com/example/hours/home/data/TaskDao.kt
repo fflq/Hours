@@ -8,8 +8,23 @@ import androidx.room.*
 interface TaskDao {
     companion object {
         const val TABLE = "task"
-        const val TODAY = "1=1"
-        const val ORDER_ID = "order by id desc"
+
+        // 获取星期几的编号1-7
+        const val WEEK = "(1+strftime('%w', 'now'))"
+        // plan尚未完成
+        const val NOT_DONE = "( (totalMtimeDone<totalMtime) and (cycleMtimeDone<cycleMtime) )"
+        // 今天有计划
+        const val HAS_PLAN = "( (planType=0 and cycleDays>0) or (planType=1 and (1<<$WEEK)&cycleWeekBits != 0) )"
+        // 今天
+        const val TODAY = "$NOT_DONE" + "and $HAS_PLAN"
+
+
+        // 现在ts
+        const val NOW_TS = "strftime('%s','now')"
+        // 今天0点ts
+        const val ZERO_TS = "$NOW_TS - ($NOW_TS + 3600 * 8) % 86400"  // CST+8
+        // 需要更新mtimeDone为0的条件
+        const val ZERO_MTIME_DONE = "(planType = 0)" + "or ( planType=1 and ($NOW_TS-startZeroTime)<(cycleDays*86400) )"
     }
 
     @Query("select * from $TABLE ")
@@ -43,6 +58,8 @@ interface TaskDao {
     @Query("select * from $TABLE where $TODAY and name like :name")
     fun selectTodayByNameLike(name: String): LiveData<List<Task>>
 
+    @Query("update task set cycleMtimeDone=0, startZeroTime=$ZERO_TS where $ZERO_MTIME_DONE")
+    fun updateCycleMtimeDone()
 
     @Update
     fun update(vararg word: Task)
@@ -55,3 +72,4 @@ interface TaskDao {
     @Insert
     fun insertOne(word: Task): Long
 }
+

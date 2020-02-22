@@ -58,6 +58,11 @@ class TaskRepository(application: Application) {
         override fun doInBackground(vararg params: Task) = taskDao.delete(*params)
     }
 
+    fun updateCycleMtimeDone() = object: AsyncTask<Unit,Unit,Unit>(){
+        override fun doInBackground(vararg params: Unit?) = taskDao.updateCycleMtimeDone()
+    }.execute()
+
+
 
     fun selectRecordsByTid(tid: Int): LiveData<List<TaskRecord>> = taskRecordDao.select(tid)
 

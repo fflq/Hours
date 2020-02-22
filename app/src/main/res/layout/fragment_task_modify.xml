@@ -141,7 +141,7 @@
             app:srcCompat="@drawable/ic_image_black_24dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clt141"
+            android:id="@+id/cltSelectIcon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

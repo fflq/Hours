@@ -41,8 +41,8 @@ class TaskAdapter(var mContext: Context?, var type: TYPE = TYPE.TASK): ListAdapt
         holder.itemView.etTaskName.text = task.name
         holder.itemView.ivTask.setImageDrawable(mContext?.resources?.getDrawable(task.drawableId, null))
 
-        var mtime = if(this.type == TYPE.TASK) task.totalMtime else task.oneCycleMtime
-        var mtimeDone = if(this.type == TYPE.TASK) task.totalMtimeHasDone else task.oneCycleMtimeHasDone
+        var mtime = if(this.type == TYPE.TASK) task.totalMtime else task.cycleMtime
+        var mtimeDone = if(this.type == TYPE.TASK) task.totalMtimeDone else task.cycleMtimeDone
         val mtimeLeft = max(mtime - mtimeDone, 0)
         holder.itemView.tvTaskHtime.text = (mtimeLeft/60).toString() + "h"
         holder.itemView.tvTaskMtime.text = (mtimeLeft%60).toString() + "m"

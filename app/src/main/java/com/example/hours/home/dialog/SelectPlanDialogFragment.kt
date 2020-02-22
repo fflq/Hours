@@ -58,15 +58,15 @@ class SelectPlanDialogFragment(var planInfoOnly: TaskPlan.PlanInfoOnly): DialogF
 
         // 初始化loopview
         rootView.lvDay.apply {
-            setListener { planInfoOnly.oneCycleDays = it }
+            setListener { planInfoOnly.cycleDays = it }
             setItems(dayList)
-            setCurrentPosition(planInfoOnly.oneCycleDays)
+            setCurrentPosition(planInfoOnly.cycleDays)
             setNotLoop()
         }
         rootView.lvHtime.apply {
-            setListener { planInfoOnly.oneCycleMtime = it*30 }
+            setListener { planInfoOnly.cycleMtime = it*30 }
             setItems(htimeList)
-            setCurrentPosition(planInfoOnly.oneCycleMtime/30)
+            setCurrentPosition(planInfoOnly.cycleMtime/30)
             setNotLoop()
         }
 
@@ -75,7 +75,6 @@ class SelectPlanDialogFragment(var planInfoOnly: TaskPlan.PlanInfoOnly): DialogF
             planInfoOnly.dayOfWeekList.clear()
             // week要额外处理dayOfWeekList，week可能是多选，要生成多个info方便别的逻辑处理
             if (planInfoOnly.type == TYPE_WEEK) {
-                planInfoOnly.oneCycleDays = 7
                 // 遍历所有选中的checkbox，添加进list中
                 for (cb in rootView.cltWeek.children)
                     if (cb is CheckBox && cb.isChecked)

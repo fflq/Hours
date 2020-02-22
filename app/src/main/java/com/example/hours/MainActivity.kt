@@ -3,26 +3,27 @@ package com.example.hours
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.hours.home.data.TaskViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav.*
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
+    lateinit var taskViewModel: TaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nav)
 
-        thread(true) {
-            //var taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
-
-        }
+        // init, because work thread cannot init
+        taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
 
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
@@ -49,6 +50,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottom_nav_view.setupWithNavController(navController)
 
+
+        thread(true) {
+            while (true) {
+                Thread.sleep(10000)
+                taskViewModel?.taskRepository?.updateCycleMtimeDone()
+            }
+        }
     }
 
 }
