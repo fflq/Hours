@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_home.*
 
 open class NotHomeBaseFragment: BaseFragment() {
 
@@ -15,7 +15,7 @@ open class NotHomeBaseFragment: BaseFragment() {
 
         // set 'up' button icon
         (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(null)
-        // hide bottom nav
+        // hide bottom activity_main
     }
 
 

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hours.R
 import com.example.hours.home.data.Task
 import com.example.hours.home.data.TaskRecord
-import kotlinx.android.synthetic.main.task_fragment.*
+import kotlinx.android.synthetic.main.fragment_task.*
 
 /**
  * A simple [Fragment] subclass.

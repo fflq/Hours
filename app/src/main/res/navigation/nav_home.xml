@@ -9,7 +9,7 @@
         android:id="@+id/todayFragment"
         android:name="com.example.hours.home.TodayFragment"
         android:label="today_fragment"
-        tools:layout="@layout/today_fragment" >
+        tools:layout="@layout/fragment_today" >
         <action
             android:id="@+id/action_todayFragment_to_taskDetailFragment"
             app:destination="@id/taskDetailFragment" />
@@ -21,7 +21,7 @@
         android:id="@+id/taskFragment"
         android:name="com.example.hours.home.task.TaskFragment"
         android:label="task_fragment"
-        tools:layout="@layout/task_fragment" >
+        tools:layout="@layout/fragment_task" >
         <action
             android:id="@+id/action_taskFragment_to_taskAddFragment"
             app:destination="@id/taskAddFragment" />

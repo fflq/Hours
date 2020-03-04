@@ -11,7 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.hours.home.data.TaskViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav.*
+import kotlinx.android.synthetic.main.layout_home.*
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.nav)
+        setContentView(R.layout.activity_main)
 
         // init, because work thread cannot init
         taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         thread(true) {
             while (true) {
                 Thread.sleep(10000)
-                taskViewModel?.taskRepository?.updateCycleMtimeDone()
+                //taskViewModel?.taskRepository?.updateCycleMtimeDone()
             }
         }
     }

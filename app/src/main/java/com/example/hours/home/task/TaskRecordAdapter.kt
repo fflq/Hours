@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hours.R
 import com.example.hours.home.data.TaskRecord
-import kotlinx.android.synthetic.main.task_card_item.view.cl12
-import kotlinx.android.synthetic.main.task_card_item.view.tvTaskHtime
-import kotlinx.android.synthetic.main.task_card_item.view.tvTaskMtime
-import kotlinx.android.synthetic.main.task_record_card_item.view.*
+import kotlinx.android.synthetic.main.list_item_card_task.view.tvTaskHtime
+import kotlinx.android.synthetic.main.list_item_card_task.view.tvTaskMtime
+import kotlinx.android.synthetic.main.list_item_card_task_record.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.text.SimpleDateFormat
 
@@ -23,7 +22,7 @@ class TaskRecordAdapter(): ListAdapter<TaskRecord, TaskRecordAdapter.TaskRecordV
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskRecordViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.task_record_card_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item_card_task_record, parent, false)
         itemView.cl12.onClick {
             this@TaskRecordAdapter.onItemClickListener?.onClick(null, itemView.tag as TaskRecord)
         }

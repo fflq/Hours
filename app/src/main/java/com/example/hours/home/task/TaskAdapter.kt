@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hours.R
 import com.example.hours.home.data.Task
-import kotlinx.android.synthetic.main.task_card_item.view.*
+import kotlinx.android.synthetic.main.list_item_card_task.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import kotlin.math.max
 
@@ -24,7 +24,7 @@ class TaskAdapter(var mContext: Context?, var type: TYPE = TYPE.TASK): ListAdapt
     enum class TYPE { TASK, TODAY }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.task_card_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item_card_task, parent, false)
         itemView.cl12.onClick {
             this@TaskAdapter.onItemClickListener?.onClick(null, itemView.tag as Task)
         }

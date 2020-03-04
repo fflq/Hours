@@ -22,8 +22,8 @@ import com.example.hours.R
 import com.example.hours.home.data.Task
 import com.example.hours.home.dialog.SortDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav.*
-import kotlinx.android.synthetic.main.task_fragment.*
+import kotlinx.android.synthetic.main.fragment_task.*
+import kotlinx.android.synthetic.main.layout_home.*
 import org.jetbrains.anko.sdk27.coroutines.onQueryTextListener
 
 abstract class HomeBaseFragment: BaseFragment() {
