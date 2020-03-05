@@ -9,4 +9,8 @@
         android:id="@+id/taskFragment"
         android:icon="@drawable/ic_list_black_24dp"
         android:title="task" />
+    <item
+        android:id="@+id/pomodoroFragment"
+        android:icon="@drawable/ic_looks_black_24dp"
+        android:title="pomodoro" />
 </menu>

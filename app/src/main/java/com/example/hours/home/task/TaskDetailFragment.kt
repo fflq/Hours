@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.hours.R
+import com.example.hours.home.base.NotHomeBaseFragment
 import com.example.hours.home.data.Task
 import com.example.hours.home.data.TaskPlan
 import kotlinx.android.synthetic.main.fragment_task_detail.*

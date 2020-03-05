@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import com.example.hours.R
+import com.example.hours.home.adapter.TaskAdapter
+import com.example.hours.home.base.HomeBaseFragment
 import com.example.hours.home.data.Task
 
 class TaskFragment : HomeBaseFragment() {

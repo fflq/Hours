@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <declare-styleable name="PomodoroView">
+        <attr name="circle_color" format="color"/>
+        <attr name="arc_color" format="color"/>
+        <attr name="stroke_width" format="integer"/>
+    </declare-styleable>
+
 </resources>

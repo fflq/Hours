@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import com.example.hours.R
+import com.example.hours.home.adapter.TaskAdapter
+import com.example.hours.home.base.HomeBaseFragment
 import com.example.hours.home.data.Task
-import com.example.hours.home.task.HomeBaseFragment
-import com.example.hours.home.task.TaskAdapter
 
 class TodayFragment : HomeBaseFragment() {
 

@@ -28,5 +28,4 @@ abstract class TaskDatabase: RoomDatabase() {
 
     abstract fun getTaskRecordDao(): TaskRecordDao
 
-    abstract fun getTaskPlanDao(): TaskPlanDao
 }

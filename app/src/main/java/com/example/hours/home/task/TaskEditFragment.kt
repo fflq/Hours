@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.hours.home.base.TaskModifyBaseFragment
 import com.example.hours.home.data.Task
 import kotlinx.android.synthetic.main.fragment_task_modify.view.*
 import org.jetbrains.anko.image

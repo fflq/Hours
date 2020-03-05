@@ -1,4 +1,4 @@
-package com.example.hours.home.task
+package com.example.hours.home.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,9 @@ import kotlinx.android.synthetic.main.list_item_card_task_record.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.text.SimpleDateFormat
 
-class TaskRecordAdapter(): ListAdapter<TaskRecord, TaskRecordAdapter.TaskRecordViewHolder>(TaskDiffCallback()) {
+class TaskRecordAdapter(): ListAdapter<TaskRecord, TaskRecordAdapter.TaskRecordViewHolder>(
+    TaskDiffCallback()
+) {
     var onItemClickListener: OnTaskRecordClickListener? = null
 
     interface OnTaskRecordClickListener {
@@ -26,7 +28,9 @@ class TaskRecordAdapter(): ListAdapter<TaskRecord, TaskRecordAdapter.TaskRecordV
         itemView.cl12.onClick {
             this@TaskRecordAdapter.onItemClickListener?.onClick(null, itemView.tag as TaskRecord)
         }
-        return TaskRecordViewHolder(itemView)
+        return TaskRecordViewHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(holder: TaskRecordViewHolder, position: Int) {

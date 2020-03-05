@@ -11,6 +11,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hours.R
+import com.example.hours.home.adapter.TaskRecordAdapter
+import com.example.hours.home.base.NotHomeBaseFragment
 import com.example.hours.home.data.Task
 import com.example.hours.home.data.TaskRecord
 import kotlinx.android.synthetic.main.fragment_task.*

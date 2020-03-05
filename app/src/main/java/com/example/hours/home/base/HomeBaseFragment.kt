@@ -1,4 +1,4 @@
-package com.example.hours.home.task
+package com.example.hours.home.base
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hours.R
+import com.example.hours.home.adapter.TaskAdapter
 import com.example.hours.home.data.Task
 import com.example.hours.home.dialog.SortDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -43,7 +44,10 @@ abstract class HomeBaseFragment: BaseFragment() {
     override fun initVarOnce() {
         super.initVarOnce()
 
-        this.taskAdapter = this.taskAdapter?: TaskAdapter(context, taskAdapterType).also {
+        this.taskAdapter = this.taskAdapter?: TaskAdapter(
+            context,
+            taskAdapterType
+        ).also {
             it.onItemClickListener = object: TaskAdapter.OnTaskClickListener {
                 override fun onClick(v: View?, task: Task) {
                     var bundle = Bundle().apply { putParcelable("task", task) }

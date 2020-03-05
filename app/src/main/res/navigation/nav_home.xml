@@ -68,4 +68,9 @@
         android:name="com.example.hours.home.task.TaskRecordsFragment"
         android:label="fragment_task_records"
         tools:layout="@layout/fragment_task_records" />
+    <fragment
+        android:id="@+id/pomodoroFragment"
+        android:name="com.example.hours.home.task.PomodoroFragment"
+        android:label="fragment_pomodoro"
+        tools:layout="@layout/fragment_pomodoro" />
 </navigation>

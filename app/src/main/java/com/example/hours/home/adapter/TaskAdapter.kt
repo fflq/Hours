@@ -1,4 +1,4 @@
-package com.example.hours.home.task
+package com.example.hours.home.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,7 +13,9 @@ import kotlinx.android.synthetic.main.list_item_card_task.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import kotlin.math.max
 
-class TaskAdapter(var mContext: Context?, var type: TYPE = TYPE.TASK): ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
+class TaskAdapter(var mContext: Context?, var type: TYPE = TYPE.TASK): ListAdapter<Task, TaskAdapter.TaskViewHolder>(
+    TaskDiffCallback()
+) {
     var onItemClickListener: OnTaskClickListener? = null
     var onItemAddTimeClickListener: OnTaskClickListener? = null
 
