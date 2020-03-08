@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import com.example.hours.Box
 
 import com.example.hours.R
 import com.example.hours.home.base.NotHomeBaseFragment
@@ -22,6 +23,7 @@ import org.jetbrains.anko.support.v4.toast
  */
 class TaskAddTimeFragment : NotHomeBaseFragment() {
     lateinit var argTask: Task
+    var boxMtime = Box(0)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,9 +31,13 @@ class TaskAddTimeFragment : NotHomeBaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         var rootView = inflater.inflate(R.layout.fragment_task_add_time, container, false)
-        rootView.tvSelectTime.apply {
-            onClick { SelectTimeDialogFragment(rootView.tvSelectTime).show(parentFragmentManager, "dialog") }
-            this.tag = 0
+        rootView.tvSelectTime.onClick {
+            SelectTimeDialogFragment(boxMtime).let {
+                it.onSubmitListener = View.OnClickListener {
+                    rootView.tvSelectTime.text = "${boxMtime.v/60}h ${boxMtime.v%60}m"
+                }
+                it.show(parentFragmentManager, "dialog")
+            }
         }
         return rootView
     }

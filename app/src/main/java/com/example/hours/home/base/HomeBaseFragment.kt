@@ -77,7 +77,7 @@ abstract class HomeBaseFragment: BaseFragment() {
 
         srlSwipeRefresh.setOnRefreshListener {
             srlSwipeRefresh.isRefreshing = true
-            Handler().postDelayed({ srlSwipeRefresh.isRefreshing = false }, 1000)
+            Handler().postDelayed({ srlSwipeRefresh?.isRefreshing = false }, 1000)
         }
 
         recyclerview.apply {

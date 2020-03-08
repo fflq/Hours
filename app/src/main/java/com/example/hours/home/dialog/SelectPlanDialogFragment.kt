@@ -58,14 +58,14 @@ class SelectPlanDialogFragment(var planInfoOnly: TaskPlan.PlanInfoOnly): DialogF
 
         // 初始化loopview
         rootView.lvDay.apply {
-            setListener { planInfoOnly.cycleDays = it }
             setItems(dayList)
+            setListener { planInfoOnly.cycleDays = it }
             setCurrentPosition(planInfoOnly.cycleDays)
             setNotLoop()
         }
         rootView.lvHtime.apply {
-            setListener { planInfoOnly.cycleMtime = it*30 }
             setItems(htimeList)
+            setListener { planInfoOnly.cycleMtime = it*30 }
             setCurrentPosition(planInfoOnly.cycleMtime/30)
             setNotLoop()
         }
