@@ -27,6 +27,7 @@ class PomodoroView : View {
     private var strokeWidth: Int = 10
     private var scale = 0f
 
+    var countDownTime = 0L
     var time = 0L
     set(value) {
         field = value
@@ -62,15 +63,6 @@ class PomodoroView : View {
             arcColor = it.getColor(R.styleable.PomodoroView_arc_color, arcColor)
             strokeWidth = it.getInt(R.styleable.PomodoroView_stroke_width, strokeWidth)
             it.recycle()
-        }
-
-        valueAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = time*1000
-            interpolator = LinearInterpolator()
-            addUpdateListener {
-                scale = it.animatedValue as Float
-                invalidate()
-            }
         }
 
 
@@ -156,13 +148,23 @@ class PomodoroView : View {
         // 在paused和stoped下可start
         if ((status == STATUS.RUNNING) || (time == 0L))  return false
 
-        valueAnimator?.duration = time*1000
+
+        val initScale = if (countDownTime != 0L) (countDownTime-time).toFloat()/countDownTime.toFloat() else 0f
+        valueAnimator = ValueAnimator.ofFloat(initScale, 1f).apply {
+            duration = time*1000
+            interpolator = LinearInterpolator()
+            addUpdateListener {
+                scale = it.animatedValue as Float
+                invalidate()
+            }
+        }
         valueAnimator?.start()
 
         countDownTimer = object: CountDownTimer(time*1000, 1000L) {
             override fun onFinish() {
-                this@PomodoroView.stop()
-                onFinishListener?.onClick(this@PomodoroView)
+                // 因为view可能被销毁后，此timer还在运行，然后调用下面报错
+                this@PomodoroView?.stop()
+                this@PomodoroView?.let { onFinishListener?.onClick(it) }
             }
 
             override fun onTick(millisUntilFinished: Long) {
@@ -192,7 +194,6 @@ class PomodoroView : View {
     }
 
 
-
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (isStarted)  return true
 
@@ -210,6 +211,7 @@ class PomodoroView : View {
     enum class STATUS {
         RUNNING, STOPED
     }
+
 }
 
 

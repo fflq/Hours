@@ -58,7 +58,7 @@ class TaskAddTimeFragment : NotHomeBaseFragment() {
 
     private fun save() {
         if (tvSelectTime.text.isNotEmpty()) {
-            val mtimeAdd = tvSelectTime.tag as Int
+            val mtimeAdd = boxMtime.v
             argTask.totalMtimeDone += mtimeAdd
             argTask.cycleMtimeDone += mtimeAdd
             taskViewModel?.update(argTask)

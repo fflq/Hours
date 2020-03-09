@@ -72,5 +72,9 @@
         android:id="@+id/pomodoroFragment"
         android:name="com.example.hours.home.task.PomodoroFragment"
         android:label="fragment_pomodoro"
-        tools:layout="@layout/fragment_pomodoro" />
+        tools:layout="@layout/fragment_pomodoro" >
+        <action
+            android:id="@+id/action_pomodoroFragment_to_taskAddTimeFragment"
+            app:destination="@id/taskAddTimeFragment" />
+    </fragment>
 </navigation>

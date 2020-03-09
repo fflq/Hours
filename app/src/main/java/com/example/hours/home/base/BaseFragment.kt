@@ -20,7 +20,7 @@ abstract class BaseFragment : Fragment() {
 
     open fun initVarOnce() {
         navController = navController?: findNavController()
-        taskViewModel = taskViewModel?: ViewModelProvider(activity!!)[TaskViewModel::class.java]
+        taskViewModel = taskViewModel?: ViewModelProvider(requireActivity())[TaskViewModel::class.java]
     }
 
 
