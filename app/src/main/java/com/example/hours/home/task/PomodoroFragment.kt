@@ -55,7 +55,7 @@ class PomodoroFragment : Fragment() {
         // 番茄钟结束时，弹窗选择添加到指定task时间中
         root.pomodoroview.onFinishListener = View.OnClickListener {
             root.btnStartStop.text = "start"
-            PomodoroAddTimeDialogFragment(boxTime).let {
+            PomodoroAddTimeDialogFragment(boxTime.v).let {
                 it.show(parentFragmentManager, "dialog")
             }
         }

@@ -1,21 +1,26 @@
 package com.example.hours.home.dialog
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.hours.Box
 import com.example.hours.R
 import com.example.hours.home.data.Task
+import com.example.hours.home.data.TaskRecord
 import com.example.hours.home.data.TaskViewModel
 import kotlinx.android.synthetic.main.dialog_pomodoro_add_time.view.*
+import kotlinx.android.synthetic.main.fragment_task_add_time.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.support.v4.toast
 
-class PomodoroAddTimeDialogFragment(var boxMtime: Box<Int>): DialogFragment() {
+class PomodoroAddTimeDialogFragment(var mTime: Int): DialogFragment() {
 
     lateinit var taskViewModel: TaskViewModel
     //var boxMtime = Box(0)
@@ -53,6 +58,27 @@ class PomodoroAddTimeDialogFragment(var boxMtime: Box<Int>): DialogFragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) { taskSelected = null }
         }
 
+        root.btn_submit.onClick {
+            if (taskSelected is Task) {
+                taskSelected?.let { taskAddTime(it, mTime) }
+                val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow( etNote.windowToken, InputMethodManager.HIDE_NOT_ALWAYS )
+                toast ("add $mTime minutes")
+                this@PomodoroAddTimeDialogFragment.dismiss()
+            }
+            else    toast("please select task")
+        }
+
         return root
     }
+
+
+    private fun taskAddTime(argTask: Task, mTimeAdd: Int) {
+        argTask.totalMtimeDone += mTimeAdd
+        argTask.cycleMtimeDone += mTimeAdd
+        taskViewModel?.update(argTask)
+
+        taskViewModel?.taskRepository?.insertRecords(TaskRecord(argTask.id!!, mTimeAdd, etNote.text.toString()))
+    }
+
 }

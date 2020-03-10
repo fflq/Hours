@@ -163,8 +163,11 @@ class PomodoroView : View {
         countDownTimer = object: CountDownTimer(time*1000, 1000L) {
             override fun onFinish() {
                 // 因为view可能被销毁后，此timer还在运行，然后调用下面报错
-                this@PomodoroView?.stop()
-                this@PomodoroView?.let { onFinishListener?.onClick(it) }
+                this@PomodoroView?.let {
+                    it.stop()
+                    it.onFinishListener?.onClick(it)
+                    it.time = it.countDownTime
+                }
             }
 
             override fun onTick(millisUntilFinished: Long) {
