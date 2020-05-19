@@ -75,6 +75,8 @@ class SelectPlanDialogFragment(var planInfoOnly: TaskPlan.PlanInfoOnly): DialogF
             planInfoOnly.dayOfWeekList.clear()
             // week要额外处理dayOfWeekList，week可能是多选，要生成多个info方便别的逻辑处理
             if (planInfoOnly.type == TYPE_WEEK) {
+                // 每个星期n，这个n就是一天周期
+                planInfoOnly.cycleDays = 1
                 // 遍历所有选中的checkbox，添加进list中
                 for (cb in rootView.cltWeek.children)
                     if (cb is CheckBox && cb.isChecked)

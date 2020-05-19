@@ -24,7 +24,8 @@ interface TaskDao {
         // 今天0点ts
         const val ZERO_TS = "$NOW_TS - ($NOW_TS + 3600 * 8) % 86400"  // CST+8
         // 需要更新mtimeDone为0的条件
-        const val ZERO_MTIME_DONE = "(planType = 0)" + "or ( planType=1 and ($NOW_TS-startZeroTime)<(cycleDays*86400) )"
+        //const val ZERO_MTIME_DONE = "(planType = 1)" + "or ( planType=0 and ($NOW_TS-startZeroTime)<(cycleDays*86400) )"
+        const val ZERO_MTIME_DONE = "($NOW_TS-startZeroTime)>=(cycleDays*86400)"
     }
 
     @Query("select * from $TABLE ")

@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_item_home -> drawerlayout.closeDrawers()
                 R.id.nav_item_person -> startActivity(Intent(this, PersonActivity::class.java))
                 R.id.nav_item_settings -> startActivity(Intent(this, PersonActivity::class.java))
-                R.id.nav_item_about -> startActivity(Intent(this, PersonActivity::class.java))
+                R.id.nav_item_about -> startActivity(Intent(this, AboutActivity::class.java))
             }
 
             true
@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity() {
 
         thread(true) {
             while (true) {
-                Thread.sleep(10000)
-                //taskViewModel?.taskRepository?.updateCycleMtimeDone()
+                taskViewModel?.taskRepository?.updateCycleMtimeDone()
+                Thread.sleep(60*1000)
             }
         }
     }

@@ -64,6 +64,8 @@ class TaskRepository(application: Application) {
 
     fun selectRecordsByTid(tid: Int): LiveData<List<TaskRecord>> = taskRecordDao.select(tid)
 
+    fun selectRecordStatsByTid(tid: Int): LiveData<List<TaskRecord.Stats>> = taskRecordDao.selectStats(tid)
+
     fun insertRecords(vararg taskRecord: TaskRecord) = InsertRecordsAsyncTask(taskRecordDao).execute(*taskRecord)
 
     class InsertRecordsAsyncTask(var taskRecordDao: TaskRecordDao): AsyncTask<TaskRecord, Unit, Unit>() {

@@ -59,4 +59,10 @@ class TaskRecord(): Parcelable {
             return arrayOfNulls(size)
         }
     }
+
+
+    class Stats (
+        var sum: Int = 0,
+        var zeroTime: Int = 0
+    )
 }

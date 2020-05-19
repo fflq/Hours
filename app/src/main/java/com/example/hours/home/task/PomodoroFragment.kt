@@ -31,7 +31,7 @@ class PomodoroFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_pomodoro, container, false)
 
         // 从viewmodel获取中断的view数据
-        toast("${pomodoroViewModel.time} ${pomodoroViewModel.countDownTime}")
+        //toast("${pomodoroViewModel.time} ${pomodoroViewModel.countDownTime}")
         root.pomodoroview.time = pomodoroViewModel.time
         root.pomodoroview.countDownTime = pomodoroViewModel.countDownTime
         // 若中断前还在运行，则恢复运行

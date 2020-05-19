@@ -39,6 +39,8 @@ abstract class HomeBaseFragment: BaseFragment() {
     abstract val liveTasks: LiveData<List<Task>>?
 
     abstract fun selectByNameLike(name: String): LiveData<List<Task>>?
+    // 不同子类处理list空不同
+    abstract fun onListChange(isNullOrEmpty: Boolean)
 
 
     override fun initVarOnce() {
@@ -127,6 +129,7 @@ abstract class HomeBaseFragment: BaseFragment() {
         oldLiveTasks = newLiveTasks
         newLiveTasks?.observe(viewLifecycleOwner, Observer<List<Task>> {
             this.taskAdapter?.submitList(it)
+            onListChange(it.isNullOrEmpty())
         })
     }
 

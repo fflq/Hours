@@ -37,6 +37,7 @@ class TaskRecordAdapter(): ListAdapter<TaskRecord, TaskRecordAdapter.TaskRecordV
         var taskRecord = getItem(position)
         holder.itemView.tag = taskRecord
         holder.itemView.tvNote.text = taskRecord.note
+        holder.itemView.tvNote.visibility = if (taskRecord.note.isNullOrEmpty()) View.GONE else View.VISIBLE
         holder.itemView.tvTaskHtime.text = (taskRecord.mtimeDone/60).toString() + "h"
         holder.itemView.tvTaskMtime.text = (taskRecord.mtimeDone%60).toString() + "m"
         holder.itemView.tvRecordAddtime.text = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(taskRecord.addTime.toLong()*1000)

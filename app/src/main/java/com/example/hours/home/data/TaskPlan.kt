@@ -2,8 +2,6 @@ package com.example.hours.home.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
-import kotlin.collections.ArrayList
 
 @Entity(tableName = "Task_Plan")
 class TaskPlan() {
@@ -32,7 +30,10 @@ class TaskPlan() {
 
         var tsNow =(System.currentTimeMillis()/1000).toInt()
         var todayZeroTime = tsNow - (tsNow + 3600 * 8) % 86400
+        // 按天和按星期都是以今天0点，而不是按星期用星期一0点，因为改按星期的circleDays为1
+        this.startZeroTime = todayZeroTime
 
+        /*
         // 根据type是按天还是按星期，设置
         when (type) {
             TYPE_WEEK -> {
@@ -41,6 +42,7 @@ class TaskPlan() {
             }
             else -> this.startZeroTime = todayZeroTime
         }
+        */
     }
 
 

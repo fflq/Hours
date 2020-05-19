@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PersonActivity"></activity>
-        <activity android:name=".home.task.TaskDetailActivity" />
-        <activity android:name=".home.task.TaskAddActivity" />
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".home.base.ToolbarNormalActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".PersonActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true" />
     </application>
 
 </manifest>

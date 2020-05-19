@@ -7,15 +7,17 @@
 
     <fragment
         android:id="@+id/todayFragment"
-        android:name="com.example.hours.home.TodayFragment"
+        android:name="com.example.hours.home.task.TodayFragment"
         android:label="today_fragment"
         tools:layout="@layout/fragment_today" >
         <action
             android:id="@+id/action_todayFragment_to_taskDetailFragment"
-            app:destination="@id/taskDetailFragment" />
+            app:destination="@id/taskDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
         <action
             android:id="@+id/action_todayFragment_to_taskAddTimeFragment"
-            app:destination="@id/taskAddTimeFragment" />
+            app:destination="@id/taskAddTimeFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
     <fragment
         android:id="@+id/taskFragment"
@@ -24,13 +26,16 @@
         tools:layout="@layout/fragment_task" >
         <action
             android:id="@+id/action_taskFragment_to_taskAddFragment"
-            app:destination="@id/taskAddFragment" />
+            app:destination="@id/taskAddFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
         <action
             android:id="@+id/action_taskFragment_to_taskDetailFragment"
-            app:destination="@id/taskDetailFragment" />
+            app:destination="@id/taskDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
         <action
             android:id="@+id/action_taskFragment_to_taskAddTimeFragment"
-            app:destination="@id/taskAddTimeFragment" />
+            app:destination="@id/taskAddTimeFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
     <fragment
         android:id="@+id/taskAddFragment"
@@ -42,22 +47,17 @@
         android:label="TaskDetailFragment" >
         <action
             android:id="@+id/action_taskDetailFragment_to_taskEditFragment"
-            app:destination="@id/taskEditFragment" />
+            app:destination="@id/taskEditFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
         <action
             android:id="@+id/action_taskDetailFragment_to_taskRecordsFragment"
-            app:destination="@id/taskRecordsFragment" />
+            app:destination="@id/taskRecordsFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
     <fragment
         android:id="@+id/taskEditFragment"
         android:name="com.example.hours.home.task.TaskEditFragment"
-        android:label="TaskEditFragment" >
-        <action
-            android:id="@+id/action_taskEditFragment_to_taskFragment"
-            app:destination="@id/taskFragment" />
-        <action
-            android:id="@+id/action_taskEditFragment_to_todayFragment"
-            app:destination="@id/todayFragment" />
-    </fragment>
+        android:label="TaskEditFragment" />
     <fragment
         android:id="@+id/taskAddTimeFragment"
         android:name="com.example.hours.home.task.TaskAddTimeFragment"
@@ -72,9 +72,5 @@
         android:id="@+id/pomodoroFragment"
         android:name="com.example.hours.home.task.PomodoroFragment"
         android:label="fragment_pomodoro"
-        tools:layout="@layout/fragment_pomodoro" >
-        <action
-            android:id="@+id/action_pomodoroFragment_to_taskAddTimeFragment"
-            app:destination="@id/taskAddTimeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_pomodoro" />
 </navigation>
